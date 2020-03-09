@@ -89,7 +89,7 @@ public class TransformationMap {
    */
   public Trans getTransformation( String transformationName ) {
     for ( CarteObjectEntry entry : transMap.keySet() ) {
-      if ( entry.getName().equals( transformationName ) ) {
+      if ( entry.getName().equals( transformationName ) && transMap.get( entry ) != null ) {
         return transMap.get( entry ).getTrans();
       }
     }
@@ -102,7 +102,10 @@ public class TransformationMap {
    * @return the transformation with the specified entry
    */
   public Trans getTransformation( CarteObjectEntry entry ) {
-    return transMap.get( entry ).getTrans();
+    if(transMap.get( entry ) != null) {
+      return transMap.get( entry ).getTrans();
+    }
+    return null;
   }
 
   /**
@@ -111,7 +114,7 @@ public class TransformationMap {
    */
   public TransConfiguration getConfiguration( String transformationName ) {
     for ( CarteObjectEntry entry : transMap.keySet() ) {
-      if ( entry.getName().equals( transformationName ) ) {
+      if ( entry.getName().equals( transformationName ) && transMap.get( entry ) != null ) {
         return transMap.get( entry ).getConfiguration();
       }
     }
@@ -124,7 +127,10 @@ public class TransformationMap {
    * @return the transformation configuration with the specified entry
    */
   public TransConfiguration getConfiguration( CarteObjectEntry entry ) {
-    return transMap.get( entry ).getConfiguration();
+    if(transMap.get( entry ) != null) {
+      return transMap.get( entry ).getConfiguration();
+    }
+    return null;
   }
 
   /**

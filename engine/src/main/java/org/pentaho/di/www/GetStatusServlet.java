@@ -365,11 +365,11 @@ public class GetStatusServlet extends BaseHttpServlet implements CartePluginInte
               + "onMouseLeave=\"mouseLeaveFunction( this, '" + tdClass + "' )\" "
               + "onClick=\"clickFunction( this, '" + tdClass + "' )\" "
               + "id=\"cellTableCell_" + i + "\" class=\"cellTableCell " + tdClass + "\">"
-              + ( trans.getLogDate() == null ? "-" : dateStr.substring( 0, dateStr.indexOf( ' ' ) ) ) + "</td>" );
+              + ( trans.getLogDate() == null ? "-" : ((dateStr != null && dateStr.substring( 0, dateStr.indexOf( ' ' ) ) != null) ? dateStr.substring( 0, dateStr.indexOf( ' ' ) ): "-") ) + "</td>" );
           out.print( "<td onMouseEnter=\"mouseEnterFunction( this, '" + tdClass + "' )\" "
               + "onMouseLeave=\"mouseLeaveFunction( this, '" + tdClass + "' )\" "
               + "onClick=\"clickFunction( this, '" + tdClass + "' )\" "
-              + "id=\"cellTableLastCell_" + i + "\" class=\"cellTableCell cellTableLastColumn " + tdClass + "\">" + dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ) + "</td>" );
+              + "id=\"cellTableLastCell_" + i + "\" class=\"cellTableCell cellTableLastColumn " + tdClass + "\">" + ((dateStr != null && dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ) != null) ? dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ): "-") + "</td>" );
           out.print( "</tr>" );
         }
         out.print( "</table></table>" );
@@ -399,13 +399,15 @@ public class GetStatusServlet extends BaseHttpServlet implements CartePluginInte
           public int compare( CarteObjectEntry o1, CarteObjectEntry o2 ) {
             Job t1 = getJobMap().getJob( o1 );
             Job t2 = getJobMap().getJob( o2 );
-            Date d1 = t1.getLogDate();
-            Date d2 = t2.getLogDate();
-            // if both jobs have last log date, desc sort by log date
-            if ( d1 != null && d2 != null ) {
-              int logDateCompare = d2.compareTo( d1 );
-              if ( logDateCompare != 0 ) {
-                return logDateCompare;
+            if(t1 != null && t2 != null) {
+              Date d1 = t1.getLogDate();
+              Date d2 = t2.getLogDate();
+              // if both jobs have last log date, desc sort by log date
+              if ( d1 != null && d2 != null ) {
+                int logDateCompare = d2.compareTo( d1 );
+                if ( logDateCompare != 0 ) {
+                  return logDateCompare;
+                }
               }
             }
             return o1.compareTo( o2 );
@@ -444,11 +446,11 @@ public class GetStatusServlet extends BaseHttpServlet implements CartePluginInte
               + "onMouseLeave=\"mouseLeaveFunction( this, '" + tdClass + "' )\" "
               + "onClick=\"clickFunction( this, '" + tdClass + "' )\" "
               + "id=\"j-cellTableCell_" + i + "\" class=\"cellTableCell " + tdClass + "\">"
-              + ( job.getLogDate() == null ? "-" : dateStr.substring( 0, dateStr.indexOf( ' ' ) ) ) + "</td>" );
+              + ( job.getLogDate() == null ? "-" : ((dateStr != null && dateStr.substring( 0, dateStr.indexOf( ' ' ) ) != null) ? dateStr.substring( 0, dateStr.indexOf( ' ' ) ): "-") ) + "</td>" );
           out.print( "<td onMouseEnter=\"mouseEnterFunction( this, '" + tdClass + "' )\" "
               + "onMouseLeave=\"mouseLeaveFunction( this, '" + tdClass + "' )\" "
               + "onClick=\"clickFunction( this, '" + tdClass + "' )\" "
-              + "id=\"j-cellTableLastCell_" + i + "\" class=\"cellTableCell cellTableLastColumn " + tdClass + "\">" + dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ) + "</td>" );
+              + "id=\"j-cellTableLastCell_" + i + "\" class=\"cellTableCell cellTableLastColumn " + tdClass + "\">" + ((dateStr != null && dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ) != null) ? dateStr.substring( dateStr.indexOf( ' ' ), dateStr.length() ): "-") + "</td>" );
           out.print( "</tr>" );
         }
         out.print( "</table></table>" );

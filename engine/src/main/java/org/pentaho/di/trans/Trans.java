@@ -3668,14 +3668,13 @@ public class Trans implements VariableSpace, NamedParams, HasLogChannelInterface
    * @return the transformation splitter object
    * @throws KettleException the kettle exception
    */
-  public static TransSplitter executeClustered( final TransMeta transMeta,
+  public static TransSplitter executeClustered( final TransMeta transMeta, TransSplitter transSplitter,
                                                 final TransExecutionConfiguration executionConfiguration )
     throws KettleException {
     if ( Utils.isEmpty( transMeta.getName() ) ) {
       throw new KettleException( "The transformation needs a name to uniquely identify it by on the remote server." );
     }
 
-    TransSplitter transSplitter = new TransSplitter( transMeta );
     transSplitter.splitOriginalTransformation();
 
     // Pass the clustered run ID to allow for parallel execution of clustered transformations

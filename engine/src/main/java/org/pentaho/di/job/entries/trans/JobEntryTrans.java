@@ -972,10 +972,10 @@ public class JobEntryTrans extends JobEntryBase implements Cloneable, JobEntryIn
             executionConfiguration.setPassedBatchId( parentJob.getPassedBatchId() );
           }
 
-          TransSplitter transSplitter = null;
+          TransSplitter transSplitter = new TransSplitter( transMeta );
           long errors = 0;
           try {
-            transSplitter = Trans.executeClustered( transMeta, executionConfiguration );
+            transSplitter = Trans.executeClustered( transMeta, transSplitter, executionConfiguration );
 
             // Monitor the running transformations, wait until they are done.
             // Also kill them all if anything goes bad

@@ -92,6 +92,7 @@ public class RunThread implements Runnable {
       } finally {
         step.setErrors( 1 );
         step.stopAll();
+        step.cleanup();
       }
     } finally {
       step.dispose( meta, data );
@@ -118,8 +119,15 @@ public class RunThread implements Runnable {
         // it's likely an OOME, so we don't want to introduce overhead by using BaseMessages.getString(), see above
         //
         log.logError( "UnexpectedError: " + Const.getStackTracker( t ) );
+        step.setErrors( 1 );
+        step.stopAll();
+        step.cleanup();
       } finally {
-        step.markStop();
+        try {
+          step.markStop();
+        } catch ( Throwable stopError ) {
+          log.logError( "Skipping exception on stop", stopError );
+        }
       }
     }
   }

@@ -76,6 +76,13 @@ public class StepInitThread implements Runnable {
     } catch ( Throwable e ) {
       log.logError( BaseMessages.getString( PKG, "Trans.Log.ErrorInitializingStep", combi.step.getStepname() ) );
       log.logError( Const.getStackTracker( e ) );
+      /* Kishan (Skava) - Releasing the socket incase of any failures in executing the job. (START) */
+      log.logError("SKAVA-002: Setting errors for step--->"+combi.step.getStepname()+" so that it is marked as a failure");
+      combi.step.setErrors( 1 );
+      System.out.println("class of step");
+      combi.step.cleanup();
+      //combi.step.stopAll();
+      /* Kishan (Skava) - Releasing the socket incase of any failures in executing the job. (END) */
     } finally {
       combi.step.getLogChannel().snap( Metrics.METRIC_STEP_INIT_STOP );
     }

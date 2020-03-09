@@ -847,7 +847,9 @@ public class ExcelInput extends BaseStep implements StepInterface {
       }
     }
     try {
-      data.errorHandler.close();
+      if(data.errorHandler != null) {
+        data.errorHandler.close();
+      }
     } catch ( KettleException e ) {
       if ( log.isDebug() ) {
         logDebug( BaseMessages.getString( PKG, "ExcelInput.Error.CouldNotCloseErrorHandler", e.toString() ) );
